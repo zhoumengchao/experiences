@@ -1,0 +1,29 @@
+#u li
+{
+    margin: 5px;
+    height: 30px;
+    width: 200px;
+    float: left;
+    text-align: center;
+    line-height: 30px;
+
+}
+a
+{
+    display:block;
+    width: 200px;
+    height: 30px;
+    background-color: red;
+    color:#ffffff;
+}
+a:hover
+{
+    background-color: greenyellow;
+}
+div
+{
+    height:30px;
+    width:1000px;
+
+
+}
