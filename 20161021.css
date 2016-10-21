@@ -1,0 +1,23 @@
+a
+{
+    display:block;
+    height:30px;
+    width:150px;
+    margin:8px;
+    background-color: green;
+    text-align: center;
+    line-height: 30px;
+    float: left;
+    color:#fff;
+
+
+}
+a:hover
+{
+    background-color: aliceblue;
+}
+#div1
+{
+    height:30px;
+    width:800px;
+}
