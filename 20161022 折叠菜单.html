@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+        }
+        a{
+            text-decoration: none;
+        }
+        ul,ol {
+            list-style: none;
+        }
+        #menu .li1 {
+
+            width: 200px;
+            background-color: black;
+            margin-bottom: 2px;
+            text-align: center;
+            line-height: 30px;
+        }
+        #menu .li1 a{
+            color:#ffffff;
+            display: block;
+            width: 200px;
+            height: 30px;
+        }
+        #menu .submemu{
+            display: none;
+        }
+        #menu .submemu li{
+
+            width: 200px;
+            background-color: darkgray;
+            border-bottom:1px dashed #000000 ;
+        }
+        #menu .submemu a{
+            color: blue;
+
+        }
+
+    </style>
+</head>
+<body>
+<ul id="menu">
+    <li class="li1">
+        <a href="#">link 1</a>
+        <ul class="submemu">
+            <li>
+                <a href="#">sublink 1</a>
+            </li>
+            <li>
+                <a href="#">sublink 2</a>
+            </li>
+            <li>
+                <a href="#">sublink 3</a>
+            </li>
+        </ul>
+    </li>
+    <li class="li1">
+        <a href="#">link 2</a>
+        <ul class="submemu">
+            <li>
+                <a href="#">sublink 1</a>
+            </li>
+            <li>
+                <a href="#">sublink 2</a>
+            </li>
+            <li>
+                <a href="#">sublink 3</a>
+            </li>
+        </ul>
+    </li>
+</ul>
+<script>
+    var oUl=document.getElementById("menu");
+    var aLi=oUl.getElementsByTagName("li");
+    for(var i=0;i<aLi.length;i++)
+    {
+        if(aLi[i].className=="li1")
+        {
+            aLi[i].onclick =function()
+            {
+                var oLi1=this.getElementsByTagName("ul")[0];
+                oLi1.style.display ="block";
+            };
+
+//            aLi[i].onmouseout =function()
+//            {
+//                var oLi1=this.getElementsByTagName("ul")[0];
+//                oLi1.style.display='none';
+//            }
+        }
+    }
+</script>
+
+</body>
+</html>
