@@ -96,6 +96,19 @@
         }
     }
 </script>
+<script>
+    var oUl = document.getElementById('menu');
+    var aLi = oUl.getElementsByTagName('li');
+    for(var i=0;i<aLi.length;i++){
+        if(aLi[i].className == 'main-menu'){
+            aLi[i].onclick = function(){
+                var oMenu = this.getElementsByTagName('ul')[0];
+                if(oMenu.style.display == 'block'){
+                    oMenu.style.display = 'none';
+                }else {
+                    oMenu.style.display = 'block';
+                }
+</script>
 
 </body>
 </html>

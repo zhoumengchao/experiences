@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ul, ol {
+            list-style: none;
+        }
+
+        #menu .li1 {
+            background-color: black;
+            height: 30px;
+            width: 200px;
+            float: left;
+            margin-right: 5px;
+            text-align: center;
+            line-height: 30px;
+        }
+
+        #menu .li1 a {
+            color: #ffffff;
+            height: 100%;
+            width: 100%;
+            display: block;
+        }
+
+        #menu .submenu {
+            display: none;
+        }
+
+        #menu .submenu li {
+            height: 20px;
+            width: 200px;
+            display: block;
+            background-color: cadetblue;
+            text-align: left;
+            text-indent: 3px;
+            line-height: 20px;
+            border-bottom: 1px dashed;
+        }
+
+        #menu .submenu a {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+<ul id="menu">
+    <li class="li1">
+        <a href="#">link 1</a>
+        <ul class="submenu">
+            <li>
+                <a href="#">sublink 1</a>
+            </li>
+            <li>
+                <a href="#">sublink 2</a>
+            </li>
+            <li>
+                <a href="#">sublink 3</a>
+            </li>
+        </ul>
+    </li>
+    <li class="li1">
+        <a href="#">link 2</a>
+        <ul class="submenu">
+            <li>
+                <a href="#">sublink 1</a>
+            </li>
+            <li>
+                <a href="#">sublink 2</a>
+            </li>
+            <li>
+                <a href="#">sublink 3</a>
+            </li>
+        </ul>
+    </li>
+    <li class="li1">
+        <a href="#">link 3</a>
+        <ul class="submenu">
+            <li>
+                <a href="#">sublink 1</a>
+            </li>
+            <li>
+                <a href="#">sublink 2</a>
+            </li>
+            <li>
+                <a href="#">sublink 3</a>
+            </li>
+        </ul>
+    </li>
+</ul>
+<script>
+    var oUl = document.getElementById("menu");
+    var aLi = oUl.children;
+    for (var i = 0; i < aLi.length; i++) {
+        aLi[i].onmouseover = function () {
+            var oSubmenu = this.children[1];
+            oSubmenu.style.display = "block";
+        };
+        aLi[i].onmouseout = function () {
+            var oSubmenu = this.children[1];
+            oSubmenu.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+</html>
