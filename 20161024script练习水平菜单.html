@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    ul, ol {
+        list-style: none;
+    }
+
+    /*#menu{*/
+    /*overflow: hidden;*/
+    /*}*/
+    div{
+        height:100px;
+        width:625px;
+    }
+    #menu .main-menu li{
+        height: 30px;
+        width: 200px;
+        background-color: black;
+        float: left;
+        text-align: center;
+        line-height: 30px;
+        margin-right: 8px;
+        /*overflow: hidden;*/
+    }
+
+    #menu .main-menu a {
+        color: #ffffff;
+        height: 100%;
+        width: 100%;
+        display: block;
+        /*overflow: hidden;*/
+    }
+
+    /*#menu .submenu {*/
+        /*display: none;*/
+    /*}*/
+
+    #menu .submenu li {
+        height: 20px;
+        width: 200px;
+        display: block;
+        background-color: #999999;
+        text-indent: 5px;
+        line-height: 20px;
+        border-bottom: 1px dashed #0f0f00;
+    }
+
+    #menu .submenu a {
+        color: darkblue;
+    }
+
+
+</style>
+<body>
+<div >
+    <ul id="menu">
+        <li class="main-menu">
+            <a href="#"> link 1</a>
+            <ul class="submenu">
+                <li><a href="#">sublink1</a></li>
+                <li><a href="#">sublink2</a></li>
+                <li><a href="#">sublink3</a></li>
+            </ul>
+        </li>
+        <li class="main-menu">
+            <a href="#">link 2</a>
+            <ul class="submenu">
+                <li><a href="#">sublink1</a></li>
+                <li><a href="#">sublink2</a></li>
+                <li><a href="#">sublink3</a></li>
+            </ul>
+        </li>
+        <li class="main-menu">
+            <a href="#">link 3</a>
+            <ul class="submenu">
+                <li><a href="#">sublink1</a></li>
+                <li><a href="#">sublink2</a></li>
+                <li><a href="#">sublink3</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<script>
+    var oUl = document.getElementById("menu");
+    var aLi = oUl.getElementsByTagName("li");
+    for (var i = 0; i < aLi.length; i++) {
+        if (aLi[i].className == "main-menu") {
+            aLi[i].onmouseover = function () {
+                var oSubMenu = this.getElementsByTagName("ul")[0];
+                oSubMenu.style.display = 'block';
+            };
+            aLi[i].onmouseout = function () {
+                var oSubMenu = this.getElementsByTagName("ul")[0];
+                oSubMenu.style.display = 'none';
+
+            }
+        }
+    }
+</script>
+</body>
+</html>
