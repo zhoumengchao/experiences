@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ul, ol {
+            list-style: none;
+        }
+
+        #menu .mainmenu {
+            width: 200px;
+            background-color: #000000;
+
+        }
+
+        #menu .mainmenu h3 {
+            color: #ffffff;
+            text-align: center;
+            line-height: 30px;
+        }
+
+        #menu .submenu {
+            display: none;
+        }
+
+        #menu .submenu li {
+            width: 200px;
+
+            background-color: #cccccc;
+            border-bottom: 1px dashed #0f0f00;
+        }
+
+        #menu .submenu a {
+            width: 100%;
+            height: 20px;
+            display: block;
+            text-align: center;
+            line-height: 20px;
+            color: darkblue;
+        }
+
+    </style>
+</head>
+<body>
+<ul id="menu">
+    <li class="mainmenu">
+        <h3>link 1</h3>
+        <ul class="submenu">
+            <li><a href="#">sublink 1</a></li>
+            <li><a href="#">sublink 2</a></li>
+            <li><a href="#">sublink 3</a></li>
+        </ul>
+    </li>
+    <li class="mainmenu">
+        <h3>link 2</h3>
+        <ul class="submenu">
+            <li><a href="#">sublink 1</a></li>
+            <li><a href="#">sublink 2</a></li>
+            <li><a href="#">sublink 3</a></li>
+        </ul>
+    </li>
+</ul>
+<script>
+//    var oUl = document.getElementById('menu');
+//    var aLi = oUl.getElementsByTagName('li');
+//    for(var i=0;i<aLi.length;i++){
+//        if(aLi[i].className=='mainmenu'){
+//            aLi[i].onclick=function(){
+//                var oSubMenu= this.getElementsByTagName('ul')[0];
+//                if(oSubMenu.style.display=='block'){
+//                    oSubMenu.style.display='none';
+//                }else{
+//                    oSubMenu.style.display='block';
+//                }
+//            }
+//        }
+//    }
+//    var oUl =document.getElementById('menu');
+//    var aLi = oUl.getElementsByTagName('li');
+//    var aH3 = oUl.getElementsByTagName('h3');
+//    var oSubMenu = oUl.getElementsByTagName('ul')
+//    for(var i=0;i<aH3.length;i++){
+//        aH3[i].index=i;
+//        aH3[i].onclick=function(){
+//            if(oSubMenu[this.index].style.display=='block'){
+//                oSubMenu[this.index].style.display ='none';
+//            }else{
+//                oSubMenu[this.index].style.display='block';
+//            }
+//        }
+//    }
+//    var oUl = document.getElementById('ul');
+//    var aLi =oUl.getElementsByTagName('li');
+//    for(var i=0;i<aLi.length;i++){
+//        if(aLi[i].className=='mainmenu'){
+//            aLi[i].onclick=function(){
+//                var oSubMenu=this.children[1];
+//                if(oSubMenu.style.display=='block'){
+//                    oSubMenu.style.display ='none';
+//                }else{
+//                    oSubMenu.style.display='block' ;
+//                }
+//            }
+//        }
+//    }
+//    var oUl = document.getElementById('menu');
+//    var aLi = oUl.getElementsByTagName('li');
+//    var aH3 = oUl.getElementsByTagName('h3');
+//    for(var i=0;i<aH3.length;i++){
+//      aH3[i].onclick = function(){
+//          if(next(this).style.display == 'block') {
+//              next(this).style.display = 'none';
+//          }else{
+//              next(this).style.display = 'block';
+//          }
+//      }
+//    }
+//    function next(elem){
+//        do{
+//            elem = elem.nextSibling;
+//        }while(elem && elem.nodeType != 1);
+//        return elem;
+//    }
+    var oUl = document.getElementById('menu');
+    var aH3 = oUl.getElementsByTagName('h3');
+    for(var i=0;i<aH3.length;i++){
+        aH3[i].onclick =function(){
+            if(next(this).style.display =='block'){
+                next(this).style.display = 'none';
+            }else{
+                next(this).style.display = 'block';
+            }
+        }
+    }
+ function next(element){
+     do{
+         element  = element .nextSibling;
+     }while(element && element.nodeType != 1);
+     return element;
+ }
+
+
+
+
+</script>
+
+
+</body>
+</html>
