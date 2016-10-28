@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        ul,ol{
+            list-style: none;
+        }
+        #menu .mainmenu{
+
+            width: 80px;
+            background-color: black;
+            color: #ffffff;
+            text-align: center;
+            line-height: 30px;
+        }
+        #menu .submenu{
+            display: none;
+        }
+        #menu .submenu li{
+            width: 80px;
+            background-color: #999999;
+            color: darkblue;
+            text-align: left;
+            text-indent: 3px ;
+            border-bottom: 1px dashed #000;
+        }
+
+
+    </style>
+</head>
+<body>
+<ul id="menu">
+    <li class="mainmenu"><h3>link 1</h3>
+    <ul class="submenu">
+        <li>sublink 1</li>
+        <li>sublink 2</li>
+        <li>sublink 3</li>
+    </ul></li>
+    <li class="mainmenu">
+        <h3>link 2</h3>
+        <ul class="submenu">
+            <li>sublink 1</li>
+            <li>sublink 2</li>
+            <li>sublink 3</li>
+        </ul>
+    </li>
+</ul>
+<script>
+    var oUl = document.getElementById('menu');
+    var aLi = oUl.getElementsByTagName('li');
+    var aH3 =oUl.getElementsByTagName('h3');
+    for(var i = 0;i<aH3.length;i++){
+        aH3[i].index=i;
+        aH3[i].onclick =function() {
+            var oSubMenu = this.parentElement.children[1];
+            if (oSubMenu.style.display == 'block') {
+                oSubMenu.style.display = 'none';
+            } else {
+                oSubMenu.style.display = 'block';
+            }
+        }
+    }
+</script>
+</body>
+</html>
