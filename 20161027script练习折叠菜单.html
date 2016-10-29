@@ -60,13 +60,17 @@
     var aH3 =oUl.getElementsByTagName('h3');
     for(var i = 0;i<aH3.length;i++){
         aH3[i].index=i;
+        aH3[i].bShow =false;
         aH3[i].onclick =function() {
             var oSubMenu = this.parentElement.children[1];
-            if (oSubMenu.style.display == 'block') {
+//            if (oSubMenu.style.display == 'block')
+//{
+            if (this.bShow){
                 oSubMenu.style.display = 'none';
             } else {
                 oSubMenu.style.display = 'block';
             }
+            this.bShow = !this.bShow;
         }
     }
 </script>
