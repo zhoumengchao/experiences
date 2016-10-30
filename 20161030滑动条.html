@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #container{
+            width: 400px;
+            height: 300px;
+            position: relative;
+            top: 100px;
+            left: 400px;
+            overflow: hidden;
+
+        }
+        #content{
+            width: 390px;
+            background-color: #cccccc;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        #scroll{
+            width: 10px;
+            height: 300px;
+            position:absolute;
+            right: 0;
+            top: 0;
+            background-color: #999999;
+
+        }
+        #scroll-btn{
+            width:10px;
+            height: 10px;
+            background-color: #0f0f00;
+            position: absolute;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+<body>
+<div id="container">
+    <div id="content">
+        my name is zmc icome from privence of 山东 啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊
+    </div>
+    <div id="scroll">
+        <div id="scroll-btn"></div>
+    </div>
+</div>
+
+<script>
+    (function(){
+        var oScrollBtn = document.getElementById('scroll-btn');
+        var oScroll =  document.getElementById('scroll');
+        var oContent =document.getElementById('content');
+        oScrollBtn.onmousedown = function(e){
+            e = e || window.event;
+            var iDisY = e.clientY - oScrollBtn.offsetTop;
+//            console.log(iDisY);
+            document.onmousemove = function(e){
+                e = e || window.event;
+                var top = e.clientY - iDisY;
+                if(top<0){
+                    top=0;
+                }
+                var btnMaxH =oScroll.offsetHeight - oScrollBtn.offsetHeight;
+                if(top >btnMaxH ){
+                    top = btnMaxH;
+                }
+                oScrollBtn.style.top = top  + "px";
+
+                var p = top / btnMaxH;
+                oContent.style.top = -p * (oContent.offsetHeight - oScroll.offsetHeight) +"px";
+                console.log(oContent.style.top);
+                return false;
+
+
+//
+//                if(){
+//
+//                }
+            };
+            document.onmouseup = function(){
+                document.onmousemove = null;
+            }
+
+        };
+
+
+    })();
+
+
+
+</script>
+</body>
+</html>
