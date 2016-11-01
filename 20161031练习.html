@@ -43,6 +43,7 @@
             line-height: 20px;
             float: left;
             margin-right: 5px;
+            cursor: pointer;
         }
         #arrow .selected{
             background-color: #999999;
@@ -61,6 +62,7 @@
             line-height: 20px;
             margin-right: 5px;
             float: left;
+            cursor: pointer;
         }
 
 
@@ -99,10 +101,11 @@
         var iNow = 0;
         for(var i=0;i<aLi.length;i++){
             aLi[i].index = i;
-            iNow = aLi[i].index;
+
 
             aLi[i].onclick = function(){
                 change(this.index);
+                iNow = this.index;
             }
         }
         function change(index){
@@ -112,20 +115,36 @@
             }
             aLi[index].className = 'selected';
             aDiv[index].className = 'selected';
-        };
+        }
         oPrev.onclick = function(){
             iNow --;
-            iNow = aLi.length -1;
+            if(iNow == -1) {
+                iNow = aLi.length - 1;
+            }
+            iNow = iNow%4;
             change(iNow);
-            
-
-
         };
         oNext.onclick =function(){
             iNow ++;
             iNow = iNow%4;
             change(iNow);
         };
+        var timer = setInterval(function(){
+            oNext.onclick();
+        },1000);
+        oContainer.onmouseover = function(){
+            clearInterval(timer);
+        };
+        oContainer.onmouseout = function(){
+            timer = setInterval(function(){
+                oNext.onclick();
+            },1000);
+
+        }
+
+
+
+
 
     })();
 
