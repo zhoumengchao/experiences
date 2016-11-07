@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .left {
+            font-size: 12px;
+            background-color: lightblue;
+            margin: 200px;
+            height: 150px;
+            width: 250px;
+            border: 1px inset #CCCCCC;
+            float: left;
+        }
+    </style>
+</head>
+<body onload="yunxing()">
+<div id="db" class="left" ></div>
+<script>
+    var Available=[3,3,2]; //系统可用资源数
+    var MAX = new Array([7,5,3],[3,2,2],[9,0,2],[2,2,2],[4,3,3]);//MAX[i][N] 每个进程对各资源最大需
+    var Allocation = new Array([0,1,0],[2,0,0],[3,0,2],[2,1,1],[0,0,2]);//i个进程已经得到j类资源的资源量
+    var Need = new Array([7,4,3],[1,2,2],[6,0,0],[0,1,1],[4,3,1]);//i个进程还需要j类资源的资源量
+    //var Request_i=[023,3,0];
+    //var Request=new Array([0,2,0],[1,0,2],[0,0,0],[0,0,0],[3,3,0])
+    var SafetyInspectionCL=1;//判断安全性
+    var Request_i=[]//P_i请求向量
+    function Request(i,Request_i)//银行家算法 发送请求
+    {
+        var x=0;
+        for (var j=0;j<=2;j++)
+        {
+            if(Request_i[j]<=Need[i][j])
+            {
+                //alert(Request_i[j])
+                if(Request_i[j]<=Available[j])
+                {
+                    // alert(Request_i[j]+','+Available[j]);
+                    x++;
+                }
+            }
+        }
+        if(x==3)
+        {
+            for(j=0;j<=2;j++)
+            {
+                Available[j]=Available[j]-Request_i[j];//系统可用资源-1
+                Allocation[i][j]=Allocation[i][j]+Request_i[j];//给进程分配资源
+                Need[i][j]= Need[i][j]-Request_i[j];
+            }
+            document.getElementById('db').innerHTML+='Request['+i+']';
+            SafetyInspection();//进行安全检查
+            if(!SafetyInspectionCL)//若不安全则作废
+            { //作废申请的资源
+                for(j=0;j<=2;j++)
+                {
+                    Available[j]=Available[j]+Request_i[j];
+                    Allocation[i][j]=Allocation[i][j]+Request_i[j];
+                    Need[i][j]= Need[i][j]+Request_i[j];
+                }
+                document.getElementById('db').innerHTML+='不安全<br>'
+            }else{document.getElementById('db').innerHTML+='已获得资源<br>' ;document.getElementById('db').innerHTML+=Available.toString();}
+        }else{document.getElementById('db').innerHTML+='Request['+i+']等待<br>';}
+    }
+    function SafetyInspection()
+    {
+        var Work=Available.slice(); //可利用资源
+        Finish=['False','False','False','False','False'];
+        var N=3;
+        for(var i=0;i<5;i++){
+            x=0;
+            for(var j=0;j<N;j++){
+                if (Finish[i]=='False'&&Need[i][j]<=Work[j]){
+                    x++;
+                    if(x==N){
+                        for(var m=0;m<N;m++){
+                            Work[m]=Work[m]+Allocation[i][m];//变分配数
+                            Finish[i]='True';// alert('dfds')
+                        }
+                        i=-1;
+                    }
+                }
+            }
+        }
+
+        for(i=0;i<4;i++){
+            // alert(Finish.toString());
+            if(Finish[i]=='False'){
+                //cout<<"系统不安全"<<endl不成功系统不安全
+                SafetyInspectionCL=0
+            }
+        }
+
+    }
+
+    function yunxing()
+    {
+        Request(1,[1,0,2]);
+        Request(4,[3,3,0]);
+        Request(0,[0,2,0]);
+    }
+</script>
+</body>
+</html>
