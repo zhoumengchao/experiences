@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        #container{
+            width: 680px;
+            height: 344px;
+            background: red;
+            margin:50px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        #tab{
+            position: absolute;
+            right: 10px;
+            bottom:10px;
+            z-index: 99999;
+        }
+        #tab li{
+            float: left;
+            width: 20px;
+            height: 20px;
+            background: #000;
+            color:#fff;
+            margin-right:5px;
+            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
+        }
+        #tab .selected{
+            background: orange;
+
+        }
+        #arrow{
+            position: absolute;
+            left: 10px;
+            bottom:10px;
+            z-index: 99999;
+        }
+        #arrow span{
+            width: 20px;
+            height:20px;
+            float: left;
+            background: #000;
+            color:#fff;
+            margin-right: 5px;
+            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
+        }
+        #content{
+
+        }
+        #content div{
+            height: 344px;
+            width: 680px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+    </style>
+</head>
+<body>
+<div id="container">
+    <ul id="tab">
+        <li class="selected">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <div id="content" >
+        <div style="background-color: blue"></div>
+        <div style="background-color: cornflowerblue"></div>
+        <div style="background-color: dodgerblue"></div>
+        <div style="background-color: darkblue"></div>
+    </div>
+    <div id="arrow">
+        <span id="prev">&lt;</span>
+        <span id="next">&gt;</span>
+    </div>
+
+</div>
+<script src="jslib.js"></script>
+<script>
+    window.onload = function(){
+//
+        var oContainer = document.getElementById('container');
+        var oTab = document.getElementById('tab');
+        var aLi = oTab.getElementsByTagName('li');
+        var oContent = document.getElementById('content');
+        var aDiv = oContent.getElementsByTagName('div');
+        var oPrev = document.getElementById('prev');
+        var oNext = document.getElementById('next');
+        var iNow = 0;
+       for(var i=0;i<aLi.length;i++) {
+           aLi[i].index = i;
+           aDiv[i].style.zIndex = aDiv.length - i;
+           aLi[i].onclick = function () {
+               change(this.index);
+               iNow = this.index;
+           }
+       }
+        var iZIndex = 4;
+        function change(index){
+            for (var i = 0; i< aLi.length; i++) {
+                aLi[i].className = '';
+            }
+            aLi[index].className = 'selected';
+            aDiv[index].style.zIndex =++iZIndex;
+            aDiv[index].style.opacity = 0;
+//            aDiv[index].style.filter=alpha
+            animate(aDiv[index],{opacity:100});
+        }
+        oNext.onclick = function () {
+            iNow++;//不能写成inow=inow++
+            iNow = iNow % 4;
+            change(iNow);
+        };
+        oPrev.onclick = function(){
+            iNow --;
+            if(iNow == -1){
+                iNow = aDiv.length - 1;
+            }
+            change(iNow);
+        };
+        var timer = setInterval(function(){
+            oNext.onclick();
+        },1000);
+        oContainer.onmouseover = function(){
+            clearInterval(timer);
+        };
+        oContainer.onmouseout =  function(){
+            timer=setInterval(function(){
+                oNext.onclick();
+            },1000);//为了保证前后是一个定时器不会出现一个定时器连着一个定时器的现象
+
+        }
+    };
+
+
+
+
+
+</script>
+
+</body>
+</html>
