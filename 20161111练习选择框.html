@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul,ol{
+            list-style: none;
+        }
+        #container{
+            height: 400px;
+            width:400px;
+            position: relative;
+            left:200px;
+            top: 150px;
+        }
+        #content{
+            height: 350px;
+            width: 400px;
+            background-color: #999999;
+        }
+        #tab{
+            height: 50px;
+            width:400px;
+        }
+        #tab li{
+            height: 50px;
+            width: 100px;
+            background-color: cadetblue;
+            color: #ffffff;
+            line-height: 50px;
+            text-align: center;
+            border-bottom: 1px dashed #ffffff;
+            float: left;
+            margin-right: 5px;
+        }
+        #tab .selected{
+            background-color: cornflowerblue;
+        }
+        #content div{
+            display: none;
+        }
+        #content .selected{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="tab">
+        <ul>
+            <li class="selected">html</li>
+            <li>css</li>
+            <li>js</li>
+        </ul>
+    </div>
+    <div id="content">
+        <div class="selected">111</div>
+        <div>222</div>
+        <div>333</div>
+    </div>
+</div>
+</body>
+<script>
+    var oTab = document.getElementById('tab');
+    var aLi = oTab.getElementsByTagName('li');
+    var oContent = document.getElementById('content');
+    var aDiv = oContent.getElementsByTagName('div');
+    for(var i = 0; i<aLi.length;i++){
+        aLi[i].onclick = function(){
+            for(var i = 0;i<aLi.length;i++){
+                aLi[i].index = i;
+                aLi[i].className = '';
+                aDiv[i].className = '';
+            }
+            this.className = 'selected';
+            aDiv[this.index].className = 'selected';
+        };
+    }
+</script>
+</html>

@@ -12,8 +12,9 @@
             height: 800px;
             width: 779px;
             position: relative;
-            left: 0;
-            top: 0;
+            left: 70px;
+            top: 70px;
+            background-color: #cccccc;
         }
         #p1{
             position: absolute;
@@ -25,6 +26,18 @@
             left: 0;
             top: 0;
         }
+        #drag{
+            height: 40px;
+            width: 40px;
+            background-color: #0f0f00;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 4;
+            cursor: pointer;
+        }
+
+
         
 
     </style>
@@ -37,6 +50,7 @@
     <div id="p2">
         <img src="img/lianxi.jpg"  id="2">
     </div>
+    <div id="drag"></div>
 </div>
 
 </body>
@@ -44,6 +58,31 @@
     var oContainer = document.getElementById('container');
     var oP1 = document.getElementById('p1');
     var oP2 = document.getElementById('p2');
+    var oDrag = document.getElementById('drag');
+    oDrag.onmousedown = function(e){
+        e = e || window.event;
+        var iDisX = e.clientX - oDrag.offsetWidth;
+        var iDisY = e.clientY - oDrag.offsetTop;
+        document.onmousemove = function(e){
+            e = e || window.event;
+            var left =e.clientY - iDisY;
+            var top = e.clientX - iDisX;
+            oDrag.style.width = left +'px';
+            oDrag.style.top = top  +'px';
+            return false;
+
+        };
+        document.onmouseout = function(){
+            document.onmousemove = null;
+        };
+    };
+     oP1.onmousedown = function(){
+         return false;
+     };
+    oP2.onmousedown = function(){
+        return false;
+    };
+
 
 
 </script>
