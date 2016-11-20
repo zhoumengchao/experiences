@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #container{
+            height:540px;
+            width: 540px;
+            margin: auto;
+        }
+        #container div{
+            height: 150px;
+            width: 150px;
+            margin: 15px;
+            float: left;
+        }
+        #container div.aColide{
+            border:1px dashed red;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div style="background-color: #999999"></div>
+    <div style="background-color: lightsteelblue"></div>
+    <div style="background-color: powderblue"></div>
+    <div style="background-color: blue"></div>
+    <div style="background-color: #CCCCCC"></div>
+    <div style="background-color: cadetblue"></div>
+    <div style="background-color: cornflowerblue"></div>
+    <div style="background-color: dodgerblue"></div>
+    <div style="background-color: lightblue"> </div>
+</div>
+<script src="jslib.js"></script>
+<script>
+    var oCotainer = document.getElementById('container');
+    var aDiv = oCotainer.getElementsByTagName('div');
+    var iZIndex = 1;
+
+    var nearElem ;
+    var aColide = [];
+    for(var i=aDiv.length-1;i>=0;i--){
+        aDiv[i].style.left=aDiv[i].offsetLeft +'px';
+        aDiv[i].style.top=aDiv[i].offsetTop +'px';
+        aDiv[i].style.position = 'absolute';
+        drag(aDiv[i]);
+
+    }
+    function drag(elem){
+        aDiv[i].onmousedown = function(e){
+            e = e || window.event;
+            var iDisX = e.clientX - elem.offsetLeft;
+            var iDisY = e.clientY - elem.offsetTop;
+            elem.style.zIndex = iZIndex++;
+            elem.pos = {
+                left:elem.offsetLeft,
+                top:elem.offsetTop
+            };
+            document.onmousemove = function(e){
+                e = e || window.event;
+                elem.style.left = e.clientX - iDisX +'px';
+                elem.style.top = e.clientY - iDisY +'px';
+
+
+                for(var i=0;i<aDiv.length;i++){
+                    if(aDiv[i]==elem){
+                        continue;
+                    }
+
+                    var isClo = check(elem,aDiv[i]);
+                    if(isClo){
+                        aColide.push(aDiv[i]);
+                        console.log(aColide);
+                    }
+//                    nearElem.className = '';
+                }
+                if(aColide.length>0){
+                   nearElem = nearest(elem);
+//                    nearElem.className = 'aColide';
+                }else{
+                    nearElem = null;
+                }
+                return false;
+            }
+
+
+        };
+        document.onmouseup = function(){
+            document.onmousemove = null;
+            if(nearElem){
+
+            }
+        }
+    }
+    function check(elem,target){
+        var elemL = elem.offsetLeft;
+        var elemR = elem.offsetLeft + elem.offsetWidth;
+        var elemT = elem.offsetTop;
+        var elemB = elem.offsetTop + elem.offsetHeight;
+        var targetL = target.offsetLeft;
+        var targetR = target.offsetLeft + target.offsetWidth;
+        var targetT = target.offsetTop;
+        var targetB = target.offsetTop + target.offsetHeight;
+        if(elemL > targetR || elemB < targetT ||elemT > targetB || elemR < targetL){
+            return false;
+
+        }else{
+            return true;
+        }
+    }
+    function nearest(elem){
+        var minDis = 999999;
+        var index = -1;
+        for(var i=0;i<aColide.length;i++){
+            var x = aColide[i].offsetLeft - elem.offsetLeft;
+            var y =aColide[i].offsetTop-elem.offsetTop;
+            var iDis = Math.sqrt(x*x+y*y);
+            if(iDis <minDis){
+                minDis = iDis;
+                index = i;
+            }
+        }
+        return aColide[index];
+    }
+</script>
+</body>
+</html>

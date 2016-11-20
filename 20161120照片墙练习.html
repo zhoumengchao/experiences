@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #container{
+            height: 540px;
+            width: 540px;
+        }
+        #container div{
+            height: 150px;
+            width: 150px;
+            float: left;
+            margin: 15px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div style="background-color: #999999"></div>
+    <div style="background-color: lightsteelblue"></div>
+    <div style="background-color: powderblue"></div>
+    <div style="background-color: blue"></div>
+    <div style="background-color: #CCCCCC"></div>
+    <div style="background-color: cadetblue"></div>
+    <div style="background-color: cornflowerblue"></div>
+    <div style="background-color: dodgerblue"></div>
+    <div style="background-color: lightblue"> </div>
+</div>
+<script>
+    var oContainer = document.getElementById('container');
+    var aDiv = oContainer.getElementsByTagName('div');
+    for(var i=aDiv.length-1;i>=0;i--){
+        aDiv[i].style.left = aDiv[i].offsetLeft +'px';
+        aDiv[i].style.top = aDiv[i].offsetTop + 'px';
+        aDiv[i].style.position = 'absolute';
+        aDiv[i].style.margin = 0;
+        drag(aDiv[i]);
+    }
+    function drag(elem){
+        elem.onmousedown = function(e){
+            e = e || window.event;
+            var iDisX = e.clientX - elem.offsetLeft;
+            var iDisY = e.clientY - elem.offsetTop;
+            document.onmousemove = function(e){
+                e= e || window.event;
+                var left = e.clientX - iDisX;
+                var top = e.clientY - iDisY;
+                elem.style.left = left +'px';
+                elem.style.top = top +'px';
+            }
+        };
+        document.onmouseup = function(){
+            document.onmousemove = null;
+        }
+    }
+    function check(elem,target){
+        var elemL = elem.offsetLeft;
+        var elemR = elem.offsetWidth + elem.offsetLeft;
+        var elemT = elem.offsetTop;
+        var elemB = elem.offsetHeight + elem.offsetTop;
+        var targetL = target.offsetLeft;
+        var targetR = target.offsetWidth + target.offsetLeft;
+        var targetT = target.offsetTop;
+        var targetB = target.offsetHeight + target.offsetTop;
+        if(elemL < targetR || e ){
+
+        }
+
+    }
+</script>
+</body>
+</html>
