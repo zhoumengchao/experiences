@@ -5,21 +5,21 @@
     <title></title>
     <style>
         *{
-            margin: 0;
             padding: 0;
+            margin: 0;
         }
         #container{
-            height: 540px;
+            height:540px;
             width: 540px;
         }
         #container div{
             height: 150px;
             width: 150px;
+            margin:15px;
             float: left;
-            margin: 15px;
         }
         #container div.collide{
-            border:1px solid #f00;
+            border: 1px dashed #000000;
         }
     </style>
 </head>
@@ -39,65 +39,62 @@
 <script>
     var oContainer = document.getElementById('container');
     var aDiv = oContainer.getElementsByTagName('div');
-    var aColide = [];
-    var iZIndex = 1;
-    for(var i = aDiv.length - 1;i>=0;i--){
+    var zIndex = 1;
+    var colide = [];
+    var nearElem =null;
+    for(var i = aDiv.length - 1;i>=0;i--) {
         aDiv[i].style.left = aDiv[i].offsetLeft +'px';
-        aDiv[i].style.top = aDiv[i].offsetTop+'px';
+        aDiv[i].style.top = aDiv[i].offsetTop + 'px';
         aDiv[i].style.position = 'absolute';
         aDiv[i].style.margin = 0;
         drag(aDiv[i]);
-//         var pos   = {
-//            left = aDiv[i].offsetLeft;
-//            top = aDiv[i].offsetTop;
-//        }
         aDiv[i].pos = {
-            left:aDiv[i].offsetLeft,
-            top:aDiv[i].offsetTop
+            left :aDiv[i].offsetLeft,
+            top :aDiv[i].offsetTop
         }
     }
     function drag(elem){
-        elem.onmousedown = function(e){
+        elem.onmousedown  = function(e){
             e = e || window.event;
-            var iDisX = e.clientX - elem.offsetLeft ;
+            var iDisX = e.clientX - elem.offsetLeft;
             var iDisY = e.clientY - elem.offsetTop;
-            elem.style.zIndex= iZIndex ++;
+            elem.style.zIndex = zIndex++;
             document.onmousemove = function(e){
+                e = e || window.event;
                 var left = e.clientX - iDisX;
                 var top = e.clientY - iDisY;
-                elem.style.left = left +'px';
-                elem.style.top = top +'px';
-                aColide=[];
-                for(var i = 0;i<aDiv.length;i++){
-                    if( aDiv[i] == elem){
+                elem.style.left = left + 'px';
+                elem.style.top = top + 'px';
+                colide = [];
+                for(var i=0;i<aDiv.length;i++){
+                    if(aDiv[i] == elem){
                         continue;
                     }
-                    aDiv[i].className = '';
-                    var iclio = check(elem,aDiv[i]);
-                    if(iclio){
-                        aColide.push(aDiv[i]);
-                        console.log(aColide);
+                    var icoilde = checkcolide(elem,aDiv[i]);
+                    if(icoilde){
+                        colide.push(aDiv[i]);
                     }
+                    aDiv[i].className = '';
 
                 }
-                if(aColide.length>0){
+//                console.log(colide);
+                if(colide.length > 0) {
                     nearElem = nearest(elem);
                     nearElem.className = 'collide';
                 }else{
                     nearElem = null;
                 }
                 return false;
-                }
-
+            }
         };
         document.onmouseup = function(){
-          document.onmousemove = null;
+            document.onmousemove = null;
             if(nearElem){
                 animate(elem,nearElem.pos);
                 animate(nearElem,elem.pos);
-                var posi = elem.pos;
+                var pos = elem.pos;
                 elem.pos = nearElem.pos;
-                nearElem.pos = posi;
+                nearElem.pos = pos;
                 nearElem.className = '';
                 nearElem = null;
             }else{
@@ -105,39 +102,37 @@
             }
         }
     }
-    function check(elem,target){
-            var elemR = elem.offsetLeft + elem.offsetWidth,
-                    elemB = elem.offsetTop + elem.offsetHeight,
-                    elemT = elem.offsetTop,
-                    elemL = elem.offsetLeft;
-            var targetR = target.offsetLeft + target.offsetWidth,
-                    targetB = target.offsetTop + target.offsetHeight,
-                    targetT = target.offsetTop,
-                    targetL = target.offsetLeft;
-            if(elemR < targetL || elemB < targetT || elemL > targetR || elemT > targetB){
-                //没碰撞
-                return false;
-            }else{
-                return true;
-            }
+    function checkcolide(elem,target){
+        var elemL = elem.offsetLeft,
+                elemR = elem.offsetLeft + elem.offsetWidth,
+                elemT = elem.offsetTop,
+                elemB = elem.offsetHeight + elem.offsetTop;
+        var targetL = target.offsetLeft,
+                targetR = target.offsetWidth + target.offsetLeft,
+                targetT = target.offsetTop,
+                targetB = target.offsetHeight + target.offsetTop;
+        if(elemL > targetR || elemR < targetL || elemT > targetB || elemB < targetT){
+            return false;
+        }else{
+            return true;
         }
-    var nearElem;
+    }
     function nearest(elem){
         var mixDis = 9999999;
-        var index= -1;
-        for(var i=0;i<aColide.length;i++){
-            var x = aColide[i].offsetLeft - elem.offsetLeft;
-            var y = aColide[i].offsetTop - elem.offsetTop;
-            var iDis = Math.sqrt(x*x + y*y);
-            if(iDis < mixDis) {
-                mixDis = iDis;
-                index = i;
+        var index = -1;
+        var iDis ;
+            for(var i=0;i<colide.length;i++) {
+                var x = elem.offsetLeft - colide[i].offsetLeft;
+                var y = elem.offsetLeft - colide[i].offsetTop;
+                iDis = Math.sqrt(x * x + y * y);
+                if(iDis < mixDis){
+                    mixDis = iDis;
+                    index = i;
+                }
             }
-            return aColide[index];
+        return colide[index];
+//        console.log(index);
         }
-
-
-    }
 </script>
 </body>
 </html>

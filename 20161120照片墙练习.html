@@ -32,9 +32,11 @@
     <div style="background-color: dodgerblue"></div>
     <div style="background-color: lightblue"> </div>
 </div>
+<script src="jslib.js"></script>
 <script>
     var oContainer = document.getElementById('container');
     var aDiv = oContainer.getElementsByTagName('div');
+    var nearElem;
     for(var i=aDiv.length-1;i>=0;i--){
         aDiv[i].style.left = aDiv[i].offsetLeft +'px';
         aDiv[i].style.top = aDiv[i].offsetTop + 'px';
@@ -43,6 +45,8 @@
         drag(aDiv[i]);
     }
     function drag(elem){
+        var ELeft = elem.offsetLeft;
+        var ETop = elem.offsetTop;
         elem.onmousedown = function(e){
             e = e || window.event;
             var iDisX = e.clientX - elem.offsetLeft;
@@ -53,6 +57,25 @@
                 var top = e.clientY - iDisY;
                 elem.style.left = left +'px';
                 elem.style.top = top +'px';
+                aColide=[];
+                for(var i=0;i<aDiv.length;i++){
+                    var checkDis = check(elem,aDiv[i]);
+                    if(checkDis){
+                        aColide.push(aDiv[i]);
+                        console.log(aColide);
+                    }
+                }
+                if(aColide.length>0){
+                    nearElem = nearest(elem);
+                    var NLeft = nearElem.offsetLeft;
+                    var NTop = nearElem.offsetTop;
+
+                    if(elem != nearElem){
+                        animate(elem,{left:NLeft,top:NTop});
+                        animate(nearElem,{left:ELeft,top:ETop});
+                        nearElem = null;
+                    }
+                }
             }
         };
         document.onmouseup = function(){
@@ -68,10 +91,25 @@
         var targetR = target.offsetWidth + target.offsetLeft;
         var targetT = target.offsetTop;
         var targetB = target.offsetHeight + target.offsetTop;
-        if(elemL < targetR || e ){
-
+        if(elemL < targetR || elemR < targetL || elemT > targetB || elemB < targetT ){
+               return false;
+        }else{
+            return true;
         }
-
+    }
+    function nearest(elem){
+        var mixDis = 9999999;
+        var index = -1;
+        for(var i=0;i<aColide.length;i++){
+            var x = aDiv[i].offsetLeft - elem.offsetLeft;
+            var y = aDiv[i].offsetTop - elem.offsetTop;
+            var iDis = Math.sqrt(x*x +y*y);
+            if(iDis < mixDis){
+                mixDis = iDis;
+                index=i;
+            }
+        }
+        return aColide[index];
     }
 </script>
 </body>
