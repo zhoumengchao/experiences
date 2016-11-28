@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        ul,ol{
+            list-style: none;
+        }
+        body{
+            background-color:#999999;
+        }
+        #container{
+            height: 434px;
+            width: 400px;
+            margin: 50px auto;
+        }
+        #content1{
+            height: 320px;
+            width: 400px;
+            position: relative;
+        }
+        #bigpic div{
+            height:320px;
+            width: 400px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            /*opacity: 0;*/
+        }
+        #bigpic .diyige {
+            z-index: 1;
+        }
+        #leftdiv{
+            height: 320px;
+            width: 200px;
+            position: absolute;
+            left: 0;
+            top:0;
+            z-index: 99999;
+            /*background-color: red;*/
+            opacity: 0;
+        }
+        #rightdiv{
+            height: 320px;
+            width: 200px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 99999;
+            /*background-color: green;*/
+            opacity: 0;
+        }
+        #leftbtn{
+            position: absolute;
+            
+            top: 130px;
+            height: 60px;
+            width:60px;
+            background:url("img/btn.gif");
+            opacity: 1;
+            /*background-color: black;*/
+        }
+        #rightbtn{
+            height: 60px;
+            width: 60px;
+            position: absolute;
+            top: 130px;
+            right: 0;
+            background: url("img/btn.gif") 0 bottom;
+            /*background-color: black;*/
+            opacity: 1;
+
+
+        }
+        #left-test{
+            height: 20px;
+            width: 200px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            text-align: center;
+            color: #ffffff;
+            z-index: 99998;
+        }
+        #right-test{
+            height: 20px;
+            width: 200px;
+            position:absolute;
+            bottom: 0;
+            right: 0;
+            z-index: 99998;
+            text-align: center;
+            color: white;
+        }
+        #content2{
+            height: 114px;
+            width: 400px;
+            position: relative;
+            background-color: #CCCCCC;
+            overflow: hidden;
+        }
+        #smallpic div{
+            height: 94px;
+            width: 120px;
+            margin: 10px 0 10px 10px;
+            float: left;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="content1">
+        <ul id="bigpic">
+            <li ><div class="diyige" style="background-color: blue"></div></li>
+            <li><div style="background-color: lightsteelblue"></div></li>
+            <li><div style="background-color: cadetblue"></div></li>
+            <li><div style="background-color: cornflowerblue"></div></li>
+            <li><div style="background-color: dodgerblue"></div></li>
+            <li><div style="background-color: darkblue"></div></li>
+
+        </ul>
+        <div id="flow">
+            <div id="leftdiv">
+                <div id="leftbtn"></div>
+            </div>
+            <div id="rightdiv">
+                <div id="rightbtn"></div>
+            </div>
+        </div>
+        <div id="test">
+            <div id="left-test"><span >1111111</span></div>
+            <div id="right-test"><span id="btn">1</span><span>/6</span></div>
+        </div>
+    </div>
+
+    <div id="content2">
+        <ul id="smallpic">
+            <li><div style="background-color: blue"></div></li>
+            <li><div style="background-color: lightsteelblue"></div></li>
+            <li><div style="background-color: cadetblue"></div></li>
+            <li><div style="background-color: cornflowerblue"></div></li>
+            <li><div style="background-color: dodgerblue"></div></li>
+            <li><div style="background-color: darkblue"></div></li>
+        </ul>
+    </div>
+</div>
+<script src="jslib.js"></script>
+<script>
+    var oFlow = document.getElementById('flow');
+    var oLeftDiv = document.getElementById('leftdiv');
+    var oRightDiv = document.getElementById('rightdiv');
+    var oLeftBtn = document.getElementById('leftbtn');
+    var oRightBtn = document.getElementById('rightbtn');
+    var oBigPic = document.getElementById('bigpic');
+    var aDiv = oBigPic.getElementsByTagName('div');
+    oLeftDiv.onmouseover = function(){
+        this.style.opacity = 1;
+    };
+    oRightDiv.onmouseover = function(){
+        this.style.opacity = 1;
+    };
+    oFlow.onmouseout = function(){
+        oLeftDiv.style.opacity = 0 ;
+        oRightDiv.style.opacity = 0;
+    };
+//    oLeftBtn.onclick = function(){
+//
+//    }
+//    function change(index){
+//        for(var i=0;i<aDiv.length;i++){
+//            aDiv[index].style.opacity =
+//        }
+//    }
+</script>
+</body>
+</html>

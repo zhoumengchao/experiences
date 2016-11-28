@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var string =prompt("请随便输入一串字母字符串")
+    var number = {};
+    var letter = '';
+    for(var i=0;i<string.length;i++){
+        if(!number[string.charAt(i)]){
+            number[string.charAt(i)]=1;
+        }
+        if(number[string.charAt(i)]){
+            number[string.charAt(i)]++;
+        }
+        if(number[string.charAt(i)] == 1){
+            letter = string.charAt(i);
+        }
+    }
+    console.log(letter);
+
+</script>
+</body>
+</html>
