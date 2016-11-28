@@ -18,6 +18,7 @@
             height: 434px;
             width: 400px;
             margin: 50px auto;
+            /*overflow: hidden;*/
         }
         #content1{
             height: 320px;
@@ -160,6 +161,10 @@
     var oRightBtn = document.getElementById('rightbtn');
     var oBigPic = document.getElementById('bigpic');
     var aDiv = oBigPic.getElementsByTagName('div');
+    var iNow = 0;
+    var iZIndex = 1;
+    var oContent2 = document.getElementById('content2');
+    oContent2.style.width = (aDiv[0].offsetWidth + 10) * aDiv.length +'px';
     oLeftDiv.onmouseover = function(){
         this.style.opacity = 1;
     };
@@ -170,14 +175,36 @@
         oLeftDiv.style.opacity = 0 ;
         oRightDiv.style.opacity = 0;
     };
-//    oLeftBtn.onclick = function(){
-//
-//    }
-//    function change(index){
-//        for(var i=0;i<aDiv.length;i++){
-//            aDiv[index].style.opacity =
+    oLeftBtn.onclick = function(){
+        iNow++;
+        if(iNow == aDiv.length){
+            iNow = 0;
+        }
+//        aDiv[iNow].style.zIndex = ++zIndex;
+        change(iNow);
+    };
+    oRightBtn.onclick = function(){
+        iNow--;
+        if(iNow == -1){
+            iNow = aDiv.length - 1;
+        }
+        change(iNow);
+//        aDiv[iNow].style.zIndex = ++zIndex;
+//        if(iNow == 0){
+//            oContent2.style.left = 0;
+//        }else if(iNow == aDiv.length - 1){
+//            oContent2.style.left = -(aDiv[0].offsetWidth + 10) * (aDiv.length - 1) +'px';
+//        }else {
+//            oContent2.style.left = -(aDiv[0].offsetWidth + 10) * (iNow-1) +'px';
 //        }
-//    }
+    };
+
+
+    function change(index){
+        aDiv[index].style.zIndex = iZIndex++;
+        aDiv[index].style.height = 0;
+        animate(aDiv[index],{height:320});
+    }
 </script>
 </body>
 </html>
