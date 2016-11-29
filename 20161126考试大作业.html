@@ -18,7 +18,7 @@
             height: 434px;
             width: 400px;
             margin: 50px auto;
-            /*overflow: hidden;*/
+            overflow: hidden;
         }
         #content1{
             height: 320px;
@@ -161,9 +161,12 @@
     var oRightBtn = document.getElementById('rightbtn');
     var oBigPic = document.getElementById('bigpic');
     var aDiv = oBigPic.getElementsByTagName('div');
+    var oSmallPic = document.getElementById('smallpic');
+    var aDiv2 = oSmallPic.getElementsByTagName('div');
     var iNow = 0;
     var iZIndex = 1;
     var oContent2 = document.getElementById('content2');
+    var oBtn = document.getElementById('btn');
     oContent2.style.width = (aDiv[0].offsetWidth + 10) * aDiv.length +'px';
     oLeftDiv.onmouseover = function(){
         this.style.opacity = 1;
@@ -175,20 +178,32 @@
         oLeftDiv.style.opacity = 0 ;
         oRightDiv.style.opacity = 0;
     };
-    oLeftBtn.onclick = function(){
+    oRightBtn.onclick = function(){
         iNow++;
         if(iNow == aDiv.length){
             iNow = 0;
         }
+
 //        aDiv[iNow].style.zIndex = ++zIndex;
         change(iNow);
+        oBtn.innerHTML = iNow + 1;
+//        aDiv2[iNow].style.opacity = 1;
+//        if(iNow == 0 ){
+//            oContent2.style.left = 0;
+//        }else if(iNow == aDiv2.length-1){
+//            oContent2.style.left = -(aDiv2[0].offsetWidth +10) * (iNow-2) +'px';
+//        }else{
+//            oContent2.style.left = -(aDiv2[0].offsetWidth +10) * (iNow -1) +'px';
+//        }
     };
-    oRightBtn.onclick = function(){
+    oLeftBtn.onclick = function(){
         iNow--;
         if(iNow == -1){
             iNow = aDiv.length - 1;
         }
         change(iNow);
+
+//        aDiv2[iNow].style.opacity = 1;
 //        aDiv[iNow].style.zIndex = ++zIndex;
 //        if(iNow == 0){
 //            oContent2.style.left = 0;
@@ -197,13 +212,52 @@
 //        }else {
 //            oContent2.style.left = -(aDiv[0].offsetWidth + 10) * (iNow-1) +'px';
 //        }
+//        if(iNow == 0 ){
+//            oContent2.style.left = 0;
+//        }else if(iNow == aDiv2.length-1){
+//            oContent2.style.left = -(aDiv2[0].offsetWidth +10) * (iNow-2) +'px';
+//        }else{
+//            oContent2.style.left = -(aDiv2[0].offsetWidth +10) * (iNow -1) +'px';
+//        }
+
     };
 
 
     function change(index){
         aDiv[index].style.zIndex = iZIndex++;
         aDiv[index].style.height = 0;
+        oBtn.innerHTML = iNow+1;
         animate(aDiv[index],{height:320});
+        //aDiv2[iNow].style.opacity = 0.6;
+        iNow = index;
+       //  aDiv2[iNow].style.opacity = 1;
+        for(var i=0;i<aDiv2.length;i++){
+            aDiv2[i].style.opacity = 0.6;
+        }
+        aDiv2[index].style.opacity = 1;
+        if(index == 0 ){
+            oContent2.style.left = 0;
+        }else if(index == aDiv2.length-1){
+            animate(oContent2,{left:-(aDiv2[0].offsetWidth +10) * (index-2)})
+        }else {
+            animate(oContent2, {left: left = -(aDiv2[0].offsetWidth + 10) * (index - 1)})
+        }
+
+    }
+    for(var i=0;i<aDiv2.length;i++){
+        aDiv2[i].index = i;
+//        aDiv2[i].style.opacity= 0.6;
+        aDiv2[i].onmouseover = function(){
+            this.style.opacity = 1;
+        };
+        aDiv2[i].onmouseout = function(){
+            if(this.index != iNow){
+                this.style.opacity = 0.6;
+            }
+        };
+        aDiv2[i].onclick = function(){
+            change(this.index);
+        }
     }
 </script>
 </body>
