@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<!--//有一行单词，空格为单词间的间隔，找出其中最长的单词和最短的单词-->
+<script>
+    var str = 'you are a beautiful girl';
+    var arr = str.split(" ");
+    var min = arr[0].length;
+    var max = arr[0].length;
+    var maxWord = arr[0];
+    var minWord = arr[0];
+    for(var i = 0;i<arr.length;i++){
+//        var obj = {};
+//        obj.length = arr[i].length;
+//        obj.index = i;
+//        if(obj.length>max){
+//            max = obj.length;
+//            console.log(obj);
+//        }else if(obj.length < min){
+//            min = obj.length;
+//            console.log(obj);
+//        }
+        if(arr[i].length < min){
+            min = arr[i].length;
+            minWord = arr[i];
+        }else{
+            max = arr[i].length;
+            maxWord = arr[i]
+        }
+
+    }
+    console.log(maxWord,minWord);
+
+
+</script>
+
+</body>
+</html>

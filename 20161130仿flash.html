@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul,ol{
+            list-style: none;
+        }
+        body{
+            background-color: #999999;
+        }
+        #container{
+            height:434px;
+            width:400px;
+            margin: 50px auto;
+            overflow: hidden;
+        }
+        #content1{
+            height: 320px;
+            width:400px;
+            position: relative;
+        }
+        #bigpic img{
+            height: 320px;
+            width: 400px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        #left,#right{
+            height: 320px;
+            width: 200px;
+        }
+        #left{
+            position: absolute;
+            left: 0;
+            top: 0;
+            /*background-color: red;*/
+            z-index: 99999;
+            opacity: 0;
+        }
+        #right{
+            position:absolute;
+            right: 0;
+            top: 0;
+            /*background-color: green;*/
+            z-index: 99999;
+            opacity: 0;
+        }
+        #leftbtn{
+            height: 60px;
+            width: 60px;
+            background: url("img/btn.gif");
+            position: absolute;
+            top: 130px;
+        }
+        #rightbtn{
+            height:60px;
+            width: 60px;
+            background:url("img/btn.gif");
+            background-position: bottom;
+            position: absolute;
+            right: 0;
+            top: 130px;
+        }
+        #text{
+            height: 30px;
+            width: 400px;
+            background-color: black;
+            opacity: 0.5;
+            position: absolute;
+            bottom: 0;
+            left:0;
+            z-index: 99998;
+        }
+        #textleftbtn{
+            position: absolute;
+            left: 30px;
+            bottom: 0;
+            color: white;
+            text-align: center;
+            line-height: 30px;
+        }
+        #textrightbtn{
+            position: absolute;
+            right: 30px;
+            bottom: 0;
+            color: white;
+            text-align: center;
+            line-height: 30px;
+
+        }
+
+
+        #content2 img{
+            height: 94px;
+            width: 120px;
+            margin:10px 0 10px 10px;
+            float: left;
+           
+        }
+        #content2{
+            height: 114px;
+            width: 400px;
+            background-color: #CCCCCC;
+            position: relative;
+        }
+        
+        
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="content1">
+        <div id="left">
+            <div id="leftbtn"></div>
+        </div>
+        <div id="right">
+            <div id="rightbtn"></div>
+        </div>
+            <ul id="bigpic">
+                <li><img src="img/11.jpg" style="z-index: 1" title="黑龙江大学主楼"> </li>
+                <li><img src="img/11%20(1).jpg" title="黑龙江大学汇文楼"> </li>
+                <li><img src="img/11%20(2).jpg" title="黑龙江大学春天"> </li>
+                <li><img src="img/11%20(3).jpg" title="黑龙江大学秋天"></li>
+                <li><img src="img/11%20(4).jpg" title="黑龙江大学篮球场"></li>
+                <li><img src="img/11%20(5).jpg" title="黑龙江大学三号楼"> </li>
+            </ul>
+        <div id="text">
+            <div><span id="textleftbtn">黑龙江大学主楼</span></div>
+            <div id="textrightbtn"><span id="textleft">1</span><span id="textright">/6</span></div>
+        </div>
+    </div>
+    <div id="content2">
+        <ul id="smallpic">
+            <li><img src="img/11.jpg"> </li>
+            <li><img src="img/11%20(1).jpg"> </li>
+            <li><img src="img/11%20(2).jpg"> </li>
+            <li><img src="img/11%20(3).jpg"></li>
+            <li><img src="img/11%20(4).jpg"></li>
+            <li><img src="img/11%20(5).jpg"> </li>
+        </ul>
+    </div>
+</div>
+<script src="jslib.js"></script>
+<script>
+    var  oContainer = document.getElementById('container');
+    var oContent2 = document.getElementById('content2');
+    var oLeft = document.getElementById('left');
+    var oRight = document.getElementById('right');
+    var oLeftBtn = document.getElementById('leftbtn');
+    var oRightBtn = document.getElementById('rightbtn');
+    var oBigPic = document.getElementById('bigpic');
+    var aImg1 = oBigPic.getElementsByTagName('img');
+    var oSmallPic = document.getElementById('smallpic');
+    var aImg2 = oContent2.getElementsByTagName('img');
+    var oTextLeft = document.getElementById('textleft');
+    var oTextLeftBtn = document.getElementById('textleftbtn');
+    var iZIndex = 1;
+    var iNow = 0;
+    oContent2.style.width = (aImg2[0].offsetWidth + 10)*aImg2.length +10  +'px';
+    oLeft.onmouseover = oRight.onmouseover = function(){
+        this.style.opacity = 1;
+    };
+    oLeft.onmouseout = oRight.onmouseout = function(){
+        this.style.opacity = 0;
+    };
+    oLeftBtn.onclick = function(){
+        iNow--;
+        if(iNow == -1){
+            iNow = aImg1.length - 1;
+        }
+        change(iNow);
+    };
+    oRightBtn.onclick = function(){
+        iNow++;
+        if(iNow == aImg1.length){
+            iNow = 0;
+        }
+        change(iNow);
+    };
+    for(var i =0;i<aImg2.length;i++){
+        aImg2[i].index = i;
+        if(i !=iNow){
+            aImg2[i].style.opacity = 0.6;
+        }
+//        aImg2[i].style.opacity = 0.6;
+        aImg2[i].onclick = function(){
+            change(this.index);
+        };
+        aImg2[i].onmouseover = function(){
+            this.style.opacity = 1;
+        };
+        aImg2[i].onmouseout = function(){
+            if(this.index != iNow){
+                this.style.opacity = 0.6;
+            }
+        };
+
+    }
+    function change(index) {
+        aImg1[index].style.zIndex = iZIndex++;
+        aImg1[index].style.height = 0;
+        animate(aImg1[index],{height:320});
+        iNow = index;
+        oTextLeft.innerHTML = iNow+1;
+        oTextLeftBtn.innerHTML = aImg1[index].title;
+        for(var i=0;i<aImg2.length;i++){
+            aImg2[i].style.opacity = 0.6;
+        }
+        aImg2[index].style.opacity = 1;
+        if(index==0){
+            animate(oContent2,{left:0});
+            //aImg2[index].style.left = 0;
+        }else if(index == (aImg2.length-1)){
+            animate(oContent2,{left:-(aImg2[0].offsetWidth+10) *(index-2)})
+        }else{
+            animate(oContent2,{left:-(aImg2[0].offsetWidth+10) *(index-1)})
+        }
+
+    }
+</script>
+</body>
+</html>
