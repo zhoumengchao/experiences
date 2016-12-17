@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #btn div{
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            color: #ffffff;
+            font-size: 50px;
+            line-height: 50px;
+            text-align: center;
+            -webkit-transition: all 1s ;
+            /*-webkit-animation: btn forward
+           s;*/
+            /*-webkit-transform: rotateX(360deg);*/
+            /*-webkit-transform-origin: center;*/
+        }
+        /*@-webkit-keyframes btn {*/
+             /*from{*/
+
+             /*}*/
+        /*}*/
+        /*#btn1 div{*/
+            /*height: 50px;*/
+            /*width: 50px;*/
+            /*border-radius: 50%;*/
+            /*position: absolute;*/
+            /*right: 30px;*/
+            /*bottom: 30px;*/
+            /*color: #ffffff;*/
+            /*font-size: 50px;*/
+            /*line-height: 50px;*/
+            /*text-align: center;*/
+            /*-webkit-animation: btn 2s forwards;*/
+            /*/!*-webkit-transform: rotateX(360deg);*!/*/
+            /*-webkit-transform-origin: center;*/
+        /*}*/
+        /*@-webkit-keyframes btn1 {*/
+             /*from{-webkit-transform: rotateZ(0deg);}*/
+             /*to{*/
+                 /*-webkit-transform: rotateZ(360deg);*/
+             /*}*/
+        /*}*/
+
+    </style>
+</head>
+<body>
+<div>
+    <div id="btn">
+        <div style="background-color: lightsteelblue">1</div>
+        <div style="background-color: lightskyblue">2</div>
+        <div style="background-color: dodgerblue">3</div>
+        <div style="background-color: blue">4</div>
+        <div style="background-color: darkblue">5</div>
+        <div id="home" style="background-color: black" >0</div>
+    </div>
+</div>
+<script>
+    var oBtn = document.getElementById('btn');
+    var aDiv = oBtn.getElementsByTagName('div');
+    var oHome = document.getElementById('home');
+//    console.log(aDiv);
+    var bFlag = true;
+    oHome.onclick = function(){
+        if(bFlag){
+            for(var i=0;i<aDiv.length-1;i++){
+                var x = -170 * Math.sin(i * 22.5 * Math.PI/180);
+                var y = -170 * Math.cos(i *22.5 * Math.PI/180);
+                aDiv[i].style.WebkitTransitionDelay = i*50+'ms';
+                aDiv[i].style.WebkitTransform ='translate('+ x +' px ,'+ y +'px) rotate(-360deg)';
+            }
+            this.style.webkitTransform ='rotate(-360deg)';
+        }else{
+            for(var i=0;i<aDiv.length-1;i++){
+                aDiv[i].style.webkitTransitionDelay =(aDiv.length-1 - i)*50+'ms';
+                aDiv[i].style.webkitTransform ='translate(0px,0px) rotate(0deg)';
+            }
+            this.style.webkitTransform ='rotate(0deg)';
+        }
+        bFlag = !bFlag;
+    };
+    for(var i=0;i<aDiv.length-1;i++){
+        aDiv[i].state = false;
+        aDiv[i].onclick = function(){
+            if(!this.state){
+                var corrTransform = this.style.webkitTransform ;
+                this.style.webkitTransitionDuration =
+                this.style.opacity=0.6;
+                this.style.webkitTransform=corrTransform + 'scale(2)';
+//                var that = this;
+//                setTimeout(function(){
+//                    that.style.opacity =1;
+//                    that.style.webkitTransform = corrTransform;
+//                    that.state = false;
+//                },300)
+                function fn(){
+                    this.style.opacity = 1;
+                    this.style.webkitTransform =  corrTransform;
+                    this.state =false;
+                    this.removeEventListener('webkittransitionend',fn);
+                }
+                this.addEventListener('webkittransitionend',fn,false);
+            }
+        }
+    }
+
+</script>
+</body>
+</html>

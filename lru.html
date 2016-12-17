@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<body>
+
+<script>
+    var LRUCache = function(capacity) {
+            this.capacity = capacity;
+            this.keyMap = new Set(capacity);
+            this.queue = [];
+    };//声明一个lruCache的函数对象
+    // @param {number} key
+     // @returns {number}
+     LRUCache.prototype.get = function(key) {
+         if(this.keyMap.has(key)){
+             for(var i = 0; i < this.queue.length; i++){
+                 if(this.queue[i].key === key){
+                     var value = this.queue[i].value;
+                     this.queue = this.queue.slice(0,i).concat(this.queue.slice(i + 1));
+                     this.queue.unshift({key : key, value : value});
+                     return value;
+                 }
+             }
+         }
+         return -1;
+     };
+    // @param {number} key
+     // @param {number} value
+     //  @returns {void}
+    //set方法用于初始化对象
+     LRUCache.prototype.set = function(key, value) {
+         if(this.keyMap.has(key)){
+             var index = -1;
+             for(var i = 0; i < this.queue.length; i++){
+                 if(this.queue[i].key === key){
+                     index = i;
+                     break;
+                 }
+             }
+             this.queue = this.queue.slice(0,index).concat(this.queue.slice(index + 1));
+         }else{
+             this.keyMap.add(key);
+            this.queue.unshift({key : key, value : value});
+            if(this.queue.length > this.capacity){
+                var pop = this.queue.pop();
+                this.keyMap.delete(pop.key);
+            }
+        }
+     };
+//    var object=new LRUCache(2);
+//    object.queue=[1,2,3,4,5,6,7,8];
+//    console.log(object);
+//    console.log(object.queue);
+//    console.log(object);
+</script>
+</body>
+</html>
